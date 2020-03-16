@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,14 +49,14 @@ public class DemoApplication {
 		return "HELLO I AM A DATA READER";
 	}
 
-	@GetMapping("/readDataForCode")
+	@GetMapping(value="/readDataForCode", produces = MediaType.APPLICATION_JSON_VALUE)
 	public static String requestCodeData() {
 		//JSONObject jsonObject = new JSONObject(requestProcessedData(1));
 
 		return requestProcessedData(1);
 	}
 	
-	@GetMapping("/readDataForState")
+	@GetMapping(value="/readDataForState", produces = MediaType.APPLICATION_JSON_VALUE)
 	public static String requestForState() {
 		return requestProcessedData(2);
 	}	

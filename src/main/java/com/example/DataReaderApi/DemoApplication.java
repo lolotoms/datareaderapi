@@ -1,7 +1,10 @@
 package com.example.DataReaderApi;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -29,9 +32,15 @@ public class DemoApplication {
 			return "ERROR";
 		}
 		RestTemplate request = new RestTemplate();
-		String result = request.getForObject(serverUrl, String.class);
-		System.out.println("result " + serverUrl + " : " + result);
-		return (result);
+		
+		String resultObject = request.getForObject(serverUrl, String.class);
+		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
+		
+		
+		System.out.println("resultObject " + serverUrl + " : " + resultObject);
+		System.out.println("resultEntity " + serverUrl + " : " + resultEntity.toString());
+		
+		return (resultObject);
 	}
 	
 	@GetMapping("/")
@@ -41,6 +50,8 @@ public class DemoApplication {
 
 	@GetMapping("/readDataForCode")
 	public static String requestCodeData() {
+		//JSONObject jsonObject = new JSONObject(requestProcessedData(1));
+
 		return requestProcessedData(1);
 	}
 	

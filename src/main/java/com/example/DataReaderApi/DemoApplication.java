@@ -36,10 +36,6 @@ public class DemoApplication {
 		}
 		RestTemplate request = new RestTemplate();
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-		HttpEntity<String> entity = new HttpEntity<>("body", headers);
-		
 		//String resultObject = request.getForObject(serverUrl, String.class);
 		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
 		
@@ -50,7 +46,7 @@ public class DemoApplication {
 		return (resultEntity);
 	}
 	
-	public static ResponseEntity<String> requestProcessedDataTest(int urlib) {
+	public static JSONObject requestProcessedDataTest(int urlib) {
 		String serverUrl = null;
 		if(urlib == 1) {
 			serverUrl = serverUrl1;
@@ -62,6 +58,7 @@ public class DemoApplication {
 		
 		//String resultObject = request.getForObject(serverUrl, String.class);
 		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
+		JSONObject json = new JSONObject(resultEntity.getBody());
 		
 		System.out.println("response from "+ serverUrl + " : " + resultEntity);
 		System.out.println("response body : "+ serverUrl + " : " +resultEntity.getBody());
@@ -71,22 +68,22 @@ public class DemoApplication {
 		//System.out.println("resultObject " + serverUrl + " : " + resultObject);
 		//System.out.println("resultEntity " + serverUrl + " : " + resultEntity.toString());
 		
-		return (resultEntity.ok(resultEntity.getBody()));
+		return (json);
 	}
 	
 	@GetMapping(value="/readDataForCode", produces = MediaType.APPLICATION_JSON_VALUE)
-	public static ResponseEntity<String> requestCodeData() {
+	public static JSONObject requestCodeData() {
 		//JSONObject jsonObject = new JSONObject(requestProcessedData(1));
-		ResponseEntity<String> resultEntity = requestProcessedDataTest(1);
-		System.out.println("response body : "+resultEntity.getBody());
-		System.out.println("response code : "+resultEntity.getStatusCodeValue());
-		System.out.println("response header : "+resultEntity.getHeaders());
-		return (resultEntity.ok(resultEntity.getBody()));
+		JSONObject resultEntity = requestProcessedDataTest(1);
+		System.out.println("response body : "+resultEntity);
+		System.out.println("response code : "+resultEntity.toString());
+		System.out.println("response header : "+resultEntity);
+		return (resultEntity);
 	}
 	
 	@GetMapping(value="/readDataForState", produces = MediaType.APPLICATION_JSON_VALUE)
 	public static ResponseEntity<String> requestForState() {
-		ResponseEntity<String> resultEntity = requestProcessedDataTest(2);
+		ResponseEntity<String> resultEntity = requestProcessedData(2);
 		System.out.println("response body : "+resultEntity.getBody());
 		System.out.println("response code : "+resultEntity.getStatusCodeValue());
 		System.out.println("response header : "+resultEntity.getHeaders());

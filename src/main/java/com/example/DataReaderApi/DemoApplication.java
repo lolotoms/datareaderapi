@@ -30,7 +30,7 @@ public class DemoApplication {
 		}
 		RestTemplate request = new RestTemplate();
 		String result = request.getForObject(serverUrl, String.class);
-		System.out.println(serverUrl);
+		System.out.println("result " + serverUrl + " : " + result);
 		return (result);
 	}
 	

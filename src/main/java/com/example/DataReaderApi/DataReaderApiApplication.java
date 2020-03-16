@@ -17,13 +17,13 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @RestController
-public class DemoApplication {
+public class DataReaderApiApplication {
 	
 	final static String serverUrl1 = "https://gist.githubusercontent.com/PhantomGrin/a1e8ad30915ecd9d2659400d496d1ed6/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_hash.json";
 	final static String serverUrl2 = "https://gist.githubusercontent.com/PhantomGrin/a1e8ad30915ecd9d2659400d496d1ed6/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json";
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(DataReaderApiApplication.class, args);
 	}
 	
 	public static ResponseEntity<String> requestProcessedData(int urlib) {
@@ -36,58 +36,28 @@ public class DemoApplication {
 		}
 		RestTemplate request = new RestTemplate();
 		
-		//String resultObject = request.getForObject(serverUrl, String.class);
 		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
 		
-		
-		//System.out.println("resultObject " + serverUrl + " : " + resultObject);
-		//System.out.println("resultEntity " + serverUrl + " : " + resultEntity.toString());
-		
-		return (resultEntity);
-	}
-	
-	public static JSONObject requestProcessedDataTest(int urlib) {
-		String serverUrl = null;
-		if(urlib == 1) {
-			serverUrl = serverUrl1;
-		}
-		else if (urlib == 2) {
-			serverUrl = serverUrl2;
-		}
-		RestTemplate request = new RestTemplate();
-		
-		//String resultObject = request.getForObject(serverUrl, String.class);
-		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
-		JSONObject json = new JSONObject(resultEntity.getBody());
-		
-		System.out.println("response from "+ serverUrl + " : " + resultEntity);
 		System.out.println("response body : "+ serverUrl + " : " +resultEntity.getBody());
 		System.out.println("response code : "+ serverUrl + " : " +resultEntity.getStatusCodeValue());
 		System.out.println("response header : "+ serverUrl + " : " +resultEntity.getHeaders());
 		
-		//System.out.println("resultObject " + serverUrl + " : " + resultObject);
-		//System.out.println("resultEntity " + serverUrl + " : " + resultEntity.toString());
-		
-		return (json);
-	}
-	
-	@GetMapping(value="/readDataForCode", produces = MediaType.APPLICATION_JSON_VALUE)
-	public static JSONObject requestCodeData() {
-		//JSONObject jsonObject = new JSONObject(requestProcessedData(1));
-		JSONObject resultEntity = requestProcessedDataTest(1);
-		System.out.println("response body : "+resultEntity);
-		System.out.println("response code : "+resultEntity.toString());
-		System.out.println("response header : "+resultEntity);
 		return (resultEntity);
 	}
 	
-	@GetMapping(value="/readDataForState", produces = MediaType.APPLICATION_JSON_VALUE)
-	public static ResponseEntity<String> requestForState() {
+	@GetMapping(value="/readDataForCode")
+	public static String requestCodeData() {
+		//JSONObject jsonObject = new JSONObject(requestProcessedData(1));
+		ResponseEntity<String> resultEntity = requestProcessedData(1);
+		String result = resultEntity.getBody();
+		return (result);
+	}
+	
+	@GetMapping(value="/readDataForState")
+	public static String requestForState() {
 		ResponseEntity<String> resultEntity = requestProcessedData(2);
-		System.out.println("response body : "+resultEntity.getBody());
-		System.out.println("response code : "+resultEntity.getStatusCodeValue());
-		System.out.println("response header : "+resultEntity.getHeaders());
-		return resultEntity;
+		String result = resultEntity.getBody();
+		return (result);
 	}
 	
 	@GetMapping("/")

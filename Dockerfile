@@ -11,10 +11,10 @@ VOLUME /tmp
 EXPOSE 9090
 
 # The application's jar file (when packaged)
-ARG JAR_FILE=target/datareaderapi-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/DataReaderApi-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} datareaderapi.jar
+ADD ${JAR_FILE} DataReaderApi.jar
 
 # Run the jar file 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/datareaderapi.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/DataReaderApi.jar"]

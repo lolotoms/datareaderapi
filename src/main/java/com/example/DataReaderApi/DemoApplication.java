@@ -71,7 +71,7 @@ public class DemoApplication {
 		//System.out.println("resultObject " + serverUrl + " : " + resultObject);
 		//System.out.println("resultEntity " + serverUrl + " : " + resultEntity.toString());
 		
-		return (resultEntity);
+		return (resultEntity.ok(resultEntity.getBody()));
 	}
 	
 	@GetMapping(value="/readDataForCode", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,7 +81,7 @@ public class DemoApplication {
 		System.out.println("response body : "+resultEntity.getBody());
 		System.out.println("response code : "+resultEntity.getStatusCodeValue());
 		System.out.println("response header : "+resultEntity.getHeaders());
-		return resultEntity;
+		return (resultEntity.ok(resultEntity.getBody()));
 	}
 	
 	@GetMapping(value="/readDataForState", produces = MediaType.APPLICATION_JSON_VALUE)

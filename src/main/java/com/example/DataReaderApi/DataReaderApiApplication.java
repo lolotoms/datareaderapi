@@ -26,7 +26,7 @@ public class DataReaderApiApplication {
 		SpringApplication.run(DataReaderApiApplication.class, args);
 	}
 	
-	public static ResponseEntity<String> requestProcessedData(int urlib) {
+	public static String requestProcessedData(int urlib) {
 		String serverUrl = null;
 		if(urlib == 1) {
 			serverUrl = serverUrl1;
@@ -38,11 +38,11 @@ public class DataReaderApiApplication {
 		
 		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
 		
-		System.out.println("response body : "+ serverUrl + " : " +resultEntity.getBody());
-		System.out.println("response code : "+ serverUrl + " : " +resultEntity.getStatusCodeValue());
-		System.out.println("response header : "+ serverUrl + " : " +resultEntity.getHeaders());
+		//System.out.println("response body : "+ serverUrl + " : " +resultEntity.getBody());
+		//System.out.println("response code : "+ serverUrl + " : " +resultEntity.getStatusCodeValue());
+		//System.out.println("response header : "+ serverUrl + " : " +resultEntity.getHeaders());
 		
-		return (resultEntity);
+		return (resultEntity.getBody());
 	}
 	
 	@GetMapping(value="/readDataForCode")

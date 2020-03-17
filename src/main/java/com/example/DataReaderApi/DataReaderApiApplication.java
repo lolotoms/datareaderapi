@@ -36,13 +36,13 @@ public class DataReaderApiApplication {
 		}
 		RestTemplate request = new RestTemplate();
 		
-		ResponseEntity<String> resultEntity = request.getForEntity(serverUrl, String.class);
+		String resultEntity = request.getForObject(serverUrl, String.class);
 		
 		//System.out.println("response body : "+ serverUrl + " : " +resultEntity.getBody());
 		//System.out.println("response code : "+ serverUrl + " : " +resultEntity.getStatusCodeValue());
 		//System.out.println("response header : "+ serverUrl + " : " +resultEntity.getHeaders());
 		
-		return (resultEntity.getBody());
+		return (resultEntity);
 	}
 	
 	@GetMapping(value="/readDataForCode")

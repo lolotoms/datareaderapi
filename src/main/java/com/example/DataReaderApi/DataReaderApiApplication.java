@@ -48,16 +48,16 @@ public class DataReaderApiApplication {
 	@GetMapping(value="/readDataForCode")
 	public static String requestCodeData() {
 		//JSONObject jsonObject = new JSONObject(requestProcessedData(1));
-		ResponseEntity<String> resultEntity = requestProcessedData(1);
-		String result = resultEntity.getBody();
-		return (result);
+		String resultEntity = requestProcessedData(1);
+		//String result = resultEntity.getBody();
+		return (resultEntity);
 	}
 	
 	@GetMapping(value="/readDataForState")
 	public static String requestForState() {
-		ResponseEntity<String> resultEntity = requestProcessedData(2);
-		String result = resultEntity.getBody();
-		return (result);
+		String resultEntity = requestProcessedData(2);
+		//String result = resultEntity.getBody();
+		return (resultEntity);
 	}
 	
 	@GetMapping("/")
